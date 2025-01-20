@@ -18,7 +18,7 @@ This documentation site includes several sections:
 - [Reference Guide](reference/overview.md)
   Reference pages are information oriented descriptions of this project mechanics
 
-  ![DIVIO system for documentation](docs/images/overview.png)
+  ![DIVIO system for documentation](images/overview.png)
 
 <div class="cards">
   <a href="./concepts/framework-overview/overview/">
