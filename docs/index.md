@@ -14,7 +14,7 @@ This documentation site includes several sections:
 - [Reference Guide](reference/overview.md)
   Reference pages are information oriented descriptions of this project mechanics
 
-- [Explanation](expanation/overview.md)
+- [Explanation](explanation/overview.md)
   Explanation, or discussions, clarify and illuminate a particular topic. They broaden the documentation’s coverage of a topic.
   
   ![DIVIO system for documentation](images/overview.png)
