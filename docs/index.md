@@ -8,7 +8,7 @@ This documentation site includes several sections:
 - [Tutorial Guide](tutorials/overview.md)
   Tutorials are learning oriented lessons to teach users about this project
   
-- [HoW to Guide](how-to/overview.md)
+- [How to Guide](how-to/overview.md)
   How-To Guides are goal oriented step-by-step instructions for specific problems
   
 - [Reference Guide](reference/overview.md)
