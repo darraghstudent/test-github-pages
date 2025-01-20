@@ -7,7 +7,11 @@
 # MkDocs Starter
 
 Welcome! :wave:
+This documentation site includes several sections:
 
+- [Tutorial Guide](tutorials/tutorial1.md)
+- [Reference Guide](references/reference1.md)
+- 
 <div class="cards">
   <a href="./concepts/framework-overview/overview/">
     <div class="card">
