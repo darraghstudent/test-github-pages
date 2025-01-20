@@ -15,7 +15,7 @@ This documentation site includes several sections:
   Reference pages are information oriented descriptions of this project mechanics
 
 - [Project Overview](README.md)
-  
+  Introduction and overview of Project
 
   ![DIVIO system for documentation](images/overview.png)
 
