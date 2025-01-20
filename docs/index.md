@@ -9,8 +9,8 @@
 Welcome! :wave:
 This documentation site includes several sections:
 
-- [Tutorial Guide](tutorials/tutorial.md)
-- [Reference Guide](references/reference.md)
+- [Tutorial Guide](tutorials/overview.md)
+- [Reference Guide](references/overview.md)
 - 
 <div class="cards">
   <a href="./concepts/framework-overview/overview/">
