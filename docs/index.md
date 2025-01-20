@@ -1,12 +1,8 @@
----
-  hide:
-  - navigation
-  - toc
----
- 
-# MkDocs Starter
 
-Welcome! :wave:
+# Welcome! 👋
+
+We’re glad you’re here.
+
 This documentation site includes several sections:
 
 - [Tutorial Guide](tutorials/overview.md)
