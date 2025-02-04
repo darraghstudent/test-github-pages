@@ -10,6 +10,6 @@ A tutorial is what you decide a beginner needs to know.
 A how-to guide is an answer to a question that only a user with some experience could even formulate.
 In a how-to guide, you can assume some knowledge and understanding. You can assume that the user already knows how to do basic things and use basic tools.
 
-| How-To Guide | Description |
-|--------------|-------------|
-|              |             |
+| | How-To Guide         | Description                        |
+|----------------------|------------------------------------|
+| [Setting Up AWS Architecture](AWS-Cloudformation.md) | Instructions for Setting up AWS Architecture |     
