@@ -34,6 +34,9 @@ This guide explains the components of the provided AWS CloudFormation template f
 
 This guide explains the components of the provided AWS CloudFormation template for creating an ECS Cluster with Fargate, an RDS MySQL database with subnets, and an IAM role.
 
+![image](https://github.com/user-attachments/assets/86bfbbfd-932e-416e-b49a-e5c55c7fb521)
+
+
 ### Template Structure
 
 The template is structured as follows:
