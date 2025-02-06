@@ -13,5 +13,5 @@ In a how-to guide, you can assume some knowledge and understanding. You can assu
 | How-To Guide                                         | Description                        |
 |------------------------------------------------------|------------------------------------|
 | [Auto Docs](Markdown_HowToGuide.md)                  | Markdown files  |
-| [Auto Docs](Markdown_HowToGuide.md)                  | Github Pages                 |
+| [Auto Docs](Auto_doc_config.md)                  | Auto Docs Config               |
 | [AWS Architecture](AWS-Cloudformation.md) | YAML Template 1 for AWS Architecture (ECS Cluster with Fargate, RDS MySQL with Subnets, and IAM Role) |   
