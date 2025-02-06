@@ -1,4 +1,4 @@
-## AWS CloudFormation Template Guide
+## AWS CloudFormation Template 1 Guide
 
 This guide explains the components of the provided AWS CloudFormation template for creating an ECS Cluster with Fargate, an RDS MySQL database with subnets, and an IAM role.
 
@@ -34,7 +34,8 @@ This guide explains the components of the provided AWS CloudFormation template f
 
 This guide explains the components of the provided AWS CloudFormation template for creating an ECS Cluster with Fargate, an RDS MySQL database with subnets, and an IAM role.
 
-![image](https://github.com/user-attachments/assets/86bfbbfd-932e-416e-b49a-e5c55c7fb521)
+
+![image](https://github.com/user-attachments/assets/9ed3e356-b8d0-40c5-b031-ab7bda648536)
 
 
 ### Template Structure
@@ -55,6 +56,8 @@ The template is structured as follows:
 
 ### Resources
 
+### Resources
+
 #### `MyVPC`
 - **Type**: `AWS::EC2::VPC`
 - **Properties**:
@@ -65,41 +68,92 @@ The template is structured as follows:
     - **Key**: `Name`
     - **Value**: `MyVPC`
 
+#### `InternetGateway`
+- **Type**: `AWS::EC2::InternetGateway`
+- **Properties**:
+  - **Tags**:
+    - **Key**: `Name`
+    - **Value**: `MyInternetGateway`
+    - **Key**: `Environment`
+    - **Value**: `DEV`
+
+#### `VPCGatewayAttachment`
+- **Type**: `AWS::EC2::VPCGatewayAttachment`
+- **Properties**:
+  - **VpcId**: Reference to `MyVPC`
+  - **InternetGatewayId**: Reference to `InternetGateway`
+
+#### `PublicRouteTable`
+- **Type**: `AWS::EC2::RouteTable`
+- **Properties**:
+  - **VpcId**: Reference to `MyVPC`
+  - **Tags**:
+    - **Key**: `Name`
+    - **Value**: `PublicRouteTable`
+    - **Key**: `Environment`
+    - **Value**: `DEV`
+
+#### `PublicRoute`
+- **Type**: `AWS::EC2::Route`
+- **DependsOn**: `InternetGateway`
+- **Properties**:
+  - **RouteTableId**: Reference to `PublicRouteTable`
+  - **DestinationCidrBlock**: `0.0.0.0/0`
+  - **GatewayId**: Reference to `InternetGateway`
+
 #### `PublicSubnet`
 - **Type**: `AWS::EC2::Subnet`
 - **Properties**:
-  - **VpcId**: Reference to `MyVPC`.
+  - **VpcId**: Reference to `MyVPC`
   - **CidrBlock**: `10.0.1.0/24`
   - **MapPublicIpOnLaunch**: true
   - **AvailabilityZone**: `eu-west-1a`
   - **Tags**:
     - **Key**: `Name`
     - **Value**: `PublicSubnet`
+    - **Key**: `Environment`
+    - **Value**: `DEV`
+
+#### `PublicSubnetRouteTableAssociation`
+- **Type**: `AWS::EC2::SubnetRouteTableAssociation`
+- **Properties**:
+  - **SubnetId**: Reference to `PublicSubnet`
+  - **RouteTableId**: Reference to `PublicRouteTable`
 
 #### `PrivateSubnet1`
 - **Type**: `AWS::EC2::Subnet`
 - **Properties**:
-  - **VpcId**: Reference to `MyVPC`.
+  - **VpcId**: Reference to `MyVPC`
   - **CidrBlock**: `10.0.2.0/24`
   - **AvailabilityZone**: `eu-west-1a`
   - **Tags**:
     - **Key**: `Name`
     - **Value**: `PrivateSubnet1`
+    - **Key**: `Environment`
+    - **Value**: `DEV`
 
 #### `PrivateSubnet2`
 - **Type**: `AWS::EC2::Subnet`
 - **Properties**:
-  - **VpcId**: Reference to `MyVPC`.
-  - **CidrBlock**: `10.0.3.0/24`
+  - **VpcId**: Reference to `MyVPC`
+  - **CidrBlock**: `10.0.4.0/24`
   - **AvailabilityZone**: `eu-west-1b`
   - **Tags**:
     - **Key**: `Name`
     - **Value**: `PrivateSubnet2`
+    - **Key**: `Environment`
+    - **Value**: `DEV`
 
 #### `MyCluster`
 - **Type**: `AWS::ECS::Cluster`
 - **Properties**:
   - **ClusterName**: `MyECSCluster`
+  - **CapacityProviders**:
+    - `FARGATE`
+    - `FARGATE_SPOT`
+  - **DefaultCapacityProviderStrategy**:
+    - **CapacityProvider**: `FARGATE`
+      **Weight**: 1
 
 #### `MyECRRepository`
 - **Type**: `AWS::ECR::Repository`
@@ -117,15 +171,21 @@ The template is structured as follows:
 #### `MyRDSInstance`
 - **Type**: `AWS::RDS::DBInstance`
 - **Properties**:
-  - **DBInstanceIdentifier**: `my-rds-instance`
+  - **DBInstanceIdentifier**: `mydbinstance`
   - **AllocatedStorage**: `20`
-  - **DBInstanceClass**: `db.t3.micro`
-  - **Engine**: `MySQL`
+  - **DBInstanceClass**: `db.t3.micro`  
+  - **Engine**: `mysql`
   - **MasterUsername**: `admin`
   - **MasterUserPassword**: Reference to `DBPassword`
+  - **DBName**: `mydatabase`
   - **DBSubnetGroupName**: Reference to `MyDBSubnetGroup`
   - **VPCSecurityGroups**:
-    - `MyDBSecurityGroup` GroupId
+    - Reference to `MyDBSecurityGroup`
+  - **Tags**:
+    - **Key**: `Name`
+    - **Value**: `MyDBInstance`
+    - **Key**: `Environment`
+    - **Value**: `DEV`
 
 #### `MyDBSecurityGroup`
 - **Type**: `AWS::EC2::SecurityGroup`
@@ -136,7 +196,7 @@ The template is structured as follows:
     - **IpProtocol**: `tcp`
     - **FromPort**: `3306`
     - **ToPort**: `3306`
-    - **CidrIp**: `0.0.0.0/0`
+    - **CidrIp**: `192.168.1.0/24`
 
 #### `MyTaskExecutionRole`
 - **Type**: `AWS::IAM::Role`
